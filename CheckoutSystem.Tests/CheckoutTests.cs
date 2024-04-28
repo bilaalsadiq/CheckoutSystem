@@ -89,11 +89,29 @@ namespace CheckoutSystem.Tests
         [Fact]
         public void Test_ErrorIfItemNotExistingInRecords()
         {
+            //arrange
             var checkout = new Checkout();
 
+            //act
             var ex = Assert.Throws<ArgumentException>(() => checkout.Scan("E"));
 
+            //assert
             Assert.Equal("Item not in our system - please scan another item", ex.Message);
+        }
+
+        [Fact]
+        public void Test_ApplySpecialPricingForItems_ItemA()
+        {
+            //arrange
+            var checkout = new Checkout();
+
+            //act
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("A");
+
+            //assert
+            Assert.Equal(130, checkout.GetTotalPrice());
         }
     }
 }
