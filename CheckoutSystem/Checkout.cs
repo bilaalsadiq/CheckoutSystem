@@ -1,15 +1,45 @@
-﻿namespace CheckoutSystem
+﻿using System.Collections.Generic;
+
+namespace CheckoutSystem
 {
     public class Checkout : ICheckout
     {
+        //dictionary item for products with standalone pricing
+        private readonly Dictionary<string, int> _products;
+
+        public Checkout()
+        {
+            _products = new Dictionary<string, int>
+            {
+                { "A", 50 },
+                { "B", 30 },
+                { "C", 20 },
+                { "D", 15 }
+            };
+        }
+
+        //class method to generate the 'final price' 
         public int GetTotalPrice()
         {
-            throw new NotImplementedException();
+            int totalPrice = 0;
+
+            foreach (var item in _scannedItems)
+            {
+                //get unit price from 'products' dictionary
+                var unitPrice = _products.Where(x => x.Key == item.Key).Select(x => x.Value).FirstOrDefault();
+                int qty = item.Value;
+
+                totalPrice += unitPrice * qty;
+            }
+            return totalPrice;
         }
+
+        //instantiate dictionary to hold scanned items, to then generate final price
+        private readonly Dictionary<string, int> _scannedItems = new Dictionary<string, int>();
 
         public void Scan(string Item)
         {
-            throw new NotImplementedException();
+            _scannedItems[Item] = 1;
         }
     }
 }
