@@ -39,7 +39,15 @@ namespace CheckoutSystem
 
         public void Scan(string Item)
         {
-            _scannedItems[Item] = 1;
+            //if item doesn't already exist,set quantity to 1, otherwise add another instance of item to dictionary
+            if (!_scannedItems.ContainsKey(Item))
+            {
+                _scannedItems[Item] = 1;
+            }
+            else
+            {
+                _scannedItems[Item]++;
+            }
         }
     }
 }
