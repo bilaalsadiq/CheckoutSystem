@@ -52,5 +52,20 @@ namespace CheckoutSystem.Tests
             //assert
             Assert.Equal(15, checkout.GetTotalPrice());
         }
+        [Fact]
+        public void Test_ScanAllItemsOnce()
+        {
+            //arrange
+            var checkout = new Checkout();
+
+            //act
+            checkout.Scan("A");
+            checkout.Scan("B");
+            checkout.Scan("C");
+            checkout.Scan("D");
+
+            //assert
+            Assert.Equal(115, checkout.GetTotalPrice());
+        }
     }
 }
