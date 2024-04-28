@@ -5,16 +5,16 @@ namespace CheckoutSystem
     public class Checkout : ICheckout
     {
         //dictionary item for products with standalone pricing
-        private readonly Dictionary<string, int> _products;
+        private readonly Dictionary<string, (int unitPrice, (int Quantity, int specialPrice) specialPrice)> _products;
 
         public Checkout()
         {
-            _products = new Dictionary<string, int>
+            _products = new Dictionary<string, (int unitPrice, (int Quantity, int specialPrice) specialPrice)>
             {
-                { "A", 50 },
-                { "B", 30 },
-                { "C", 20 },
-                { "D", 15 }
+                { "A", (50,(3,130)) },
+                { "B", (30,(2,45))},
+                { "C", (20,(0,0))},
+                { "D", (15,(0,0))}
             };
         }
 
@@ -25,11 +25,30 @@ namespace CheckoutSystem
 
             foreach (var item in _scannedItems)
             {
-                //get unit price from 'products' dictionary
-                var unitPrice = _products.Where(x => x.Key == item.Key).Select(x => x.Value).FirstOrDefault();
-                int qty = item.Value;
+                //get unit price and special pricing for item
+                var unitPrice = _products[item.Key].unitPrice;
+                var specialPrice = _products[item.Key].specialPrice;
 
-                totalPrice += unitPrice * qty;
+                //calculate total price for item
+                int qty = item.Value;
+                int specialQty = specialPrice.Quantity;
+                int specialPriceValue = specialPrice.specialPrice;
+
+                //validate if special pricing applies
+                if (specialQty > 0 && qty >= specialQty)
+                {
+                    //C# int division will discard remainders & returns wholly divided number
+                    int SpecialPriceQty = qty / specialQty;
+
+                    //modulus, gets remainder of qty/specialQty
+                    int NormalPriceQty = qty % specialQty;
+
+                    totalPrice += (SpecialPriceQty * specialPriceValue) + (NormalPriceQty * unitPrice);
+                }
+                else
+                {
+                    totalPrice += unitPrice * qty;
+                }
             }
             return totalPrice;
         }
