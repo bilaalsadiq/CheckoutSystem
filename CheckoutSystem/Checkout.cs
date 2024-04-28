@@ -39,6 +39,11 @@ namespace CheckoutSystem
 
         public void Scan(string Item)
         {
+            //if scanned item doesn't exist in the product dictionary
+            if (!_products.ContainsKey(Item))
+            {
+                throw new ArgumentException($"Item not in our system - please scan another item");
+            }
             //if item doesn't already exist,set quantity to 1, otherwise add another instance of item to dictionary
             if (!_scannedItems.ContainsKey(Item))
             {
