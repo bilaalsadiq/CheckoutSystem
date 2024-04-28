@@ -85,5 +85,15 @@ namespace CheckoutSystem.Tests
             //assert
             Assert.Equal(210, checkout.GetTotalPrice());
         }
+
+        [Fact]
+        public void Test_ErrorIfItemNotExistingInRecords()
+        {
+            var checkout = new Checkout();
+
+            var ex = Assert.Throws<ArgumentException>(() => checkout.Scan("E"));
+
+            Assert.Equal("Item not in our system - please scan another item", ex.Message);
+        }
     }
 }
