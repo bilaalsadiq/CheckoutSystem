@@ -113,5 +113,47 @@ namespace CheckoutSystem.Tests
             //assert
             Assert.Equal(130, checkout.GetTotalPrice());
         }
+
+        [Fact]
+        public void Test_ApplySpecialPricingForMoreThanDiscountedQty_ItemA()
+        {
+            //arrange
+            var checkout = new Checkout();
+
+            //act
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("A");
+
+            //assert
+            Assert.Equal(180, checkout.GetTotalPrice());
+        }
+
+        
+        [Fact]
+        public void Test_ApplySpecialPricingForDifferentProductsAndDifferentQtys()
+        {
+            //arrange
+            var checkout = new Checkout();
+
+            //act
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("A");
+
+            checkout.Scan("B");
+            checkout.Scan("B");
+            checkout.Scan("B");
+
+            checkout.Scan("C");
+            checkout.Scan("D");
+
+            //assert
+            Assert.Equal(290, checkout.GetTotalPrice());
+        }
+
+
     }
 }
