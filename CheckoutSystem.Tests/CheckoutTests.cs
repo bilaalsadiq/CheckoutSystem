@@ -67,5 +67,23 @@ namespace CheckoutSystem.Tests
             //assert
             Assert.Equal(115, checkout.GetTotalPrice());
         }
+
+        [Fact]
+        public void Test_ScanMultipleQtyOfSameSKU_BeforeSpecialPrice()
+        {
+            //arrange
+            var checkout = new Checkout();
+
+            //act
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("A");
+
+            checkout.Scan("B"); 
+            checkout.Scan("B");
+            
+            //assert
+            Assert.Equal(210, checkout.GetTotalPrice());
+        }
     }
 }
