@@ -254,6 +254,26 @@ namespace CheckoutSystem.Tests
             Assert.Equal(0, checkout.GetTotalPrice());
         }
 
+        [Fact]
+        public void Test_ScanOneItem_OneBag()
+        {
+            //arrange
+            var _products = new Dictionary<string, (int unitPrice, (int Quantity, int specialPrice) specialPrice)>
+            {
+                { "A", (50,(3,130)) },
+                { "B", (30,(2,45))},
+                { "C", (20,(0,0))},
+                { "D", (15,(0,0))}
+            };
+
+            var checkout = new Checkout(_products);
+
+            //act
+            checkout.Scan("A");
+
+            //assert
+            Assert.Equal(55, checkout.GetTotalPrice());
+        }
 
     }
 }
