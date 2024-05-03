@@ -8,7 +8,15 @@ namespace CheckoutSystem.Tests
         public void Test_ScanSingleItem_ItemA()
         {
             //arrange
-            var checkout = new Checkout();
+            var _products = new Dictionary<string, (int unitPrice, (int Quantity, int specialPrice) specialPrice)>
+            {
+                { "A", (50,(3,130)) },
+                { "B", (30,(2,45))},
+                { "C", (20,(0,0))},
+                { "D", (15,(0,0))}
+            };
+
+            var checkout = new Checkout(_products);
 
             //act
             checkout.Scan("A");
@@ -20,7 +28,15 @@ namespace CheckoutSystem.Tests
         public void Test_ScanSingleItem_ItemB()
         {
             //arrange
-            var checkout = new Checkout();
+            var _products = new Dictionary<string, (int unitPrice, (int Quantity, int specialPrice) specialPrice)>
+            {
+                { "A", (50,(3,130)) },
+                { "B", (30,(2,45))},
+                { "C", (20,(0,0))},
+                { "D", (15,(0,0))}
+            };
+
+            var checkout = new Checkout(_products);
 
             //act
             checkout.Scan("B");
@@ -32,7 +48,15 @@ namespace CheckoutSystem.Tests
         public void Test_ScanSingleItem_ItemC()
         {
             //arrange
-            var checkout = new Checkout();
+            var _products = new Dictionary<string, (int unitPrice, (int Quantity, int specialPrice) specialPrice)>
+            {
+                { "A", (50,(3,130)) },
+                { "B", (30,(2,45))},
+                { "C", (20,(0,0))},
+                { "D", (15,(0,0))}
+            };
+
+            var checkout = new Checkout(_products);
 
             //act
             checkout.Scan("C");
@@ -44,7 +68,15 @@ namespace CheckoutSystem.Tests
         public void Test_ScanSingleItem_ItemD()
         {
             //arrange
-            var checkout = new Checkout();
+            var _products = new Dictionary<string, (int unitPrice, (int Quantity, int specialPrice) specialPrice)>
+            {
+                { "A", (50,(3,130)) },
+                { "B", (30,(2,45))},
+                { "C", (20,(0,0))},
+                { "D", (15,(0,0))}
+            };
+
+            var checkout = new Checkout(_products);
 
             //act
             checkout.Scan("D");
@@ -56,7 +88,15 @@ namespace CheckoutSystem.Tests
         public void Test_ScanAllItemsOnce()
         {
             //arrange
-            var checkout = new Checkout();
+            var _products = new Dictionary<string, (int unitPrice, (int Quantity, int specialPrice) specialPrice)>
+            {
+                { "A", (50,(3,130)) },
+                { "B", (30,(2,45))},
+                { "C", (20,(0,0))},
+                { "D", (15,(0,0))}
+            };
+
+            var checkout = new Checkout(_products);
 
             //act
             checkout.Scan("A");
@@ -72,7 +112,15 @@ namespace CheckoutSystem.Tests
         public void Test_ScanMultipleQtyOfSameSKU_BeforeSpecialPrice()
         {
             //arrange
-            var checkout = new Checkout();
+            var _products = new Dictionary<string, (int unitPrice, (int Quantity, int specialPrice) specialPrice)>
+            {
+                { "A", (50,(0,0)) },
+                { "B", (30,(0,0))},
+                { "C", (20,(0,0))},
+                { "D", (15,(0,0))}
+            };
+
+            var checkout = new Checkout(_products);
 
             //act
             checkout.Scan("A");
@@ -90,7 +138,15 @@ namespace CheckoutSystem.Tests
         public void Test_ErrorIfItemNotExistingInRecords()
         {
             //arrange
-            var checkout = new Checkout();
+            var _products = new Dictionary<string, (int unitPrice, (int Quantity, int specialPrice) specialPrice)>
+            {
+                { "A", (50,(3,130)) },
+                { "B", (30,(2,45))},
+                { "C", (20,(0,0))},
+                { "D", (15,(0,0))}
+            };
+
+            var checkout = new Checkout(_products);
 
             //act
             var ex = Assert.Throws<ArgumentException>(() => checkout.Scan("E"));
@@ -103,7 +159,15 @@ namespace CheckoutSystem.Tests
         public void Test_ApplySpecialPricingForItems_ItemA()
         {
             //arrange
-            var checkout = new Checkout();
+            var _products = new Dictionary<string, (int unitPrice, (int Quantity, int specialPrice) specialPrice)>
+            {
+                { "A", (50,(3,130)) },
+                { "B", (30,(2,45))},
+                { "C", (20,(0,0))},
+                { "D", (15,(0,0))}
+            };
+
+            var checkout = new Checkout(_products);
 
             //act
             checkout.Scan("A");
@@ -118,7 +182,15 @@ namespace CheckoutSystem.Tests
         public void Test_ApplySpecialPricingForMoreThanDiscountedQty_ItemA()
         {
             //arrange
-            var checkout = new Checkout();
+            var _products = new Dictionary<string, (int unitPrice, (int Quantity, int specialPrice) specialPrice)>
+            {
+                { "A", (50,(3,130)) },
+                { "B", (30,(2,45))},
+                { "C", (20,(0,0))},
+                { "D", (15,(0,0))}
+            };
+
+            var checkout = new Checkout(_products);
 
             //act
             checkout.Scan("A");
@@ -135,7 +207,15 @@ namespace CheckoutSystem.Tests
         public void Test_ApplySpecialPricingForDifferentProductsAndDifferentQtys()
         {
             //arrange
-            var checkout = new Checkout();
+            var _products = new Dictionary<string, (int unitPrice, (int Quantity, int specialPrice) specialPrice)>
+            {
+                { "A", (50,(3,130)) },
+                { "B", (30,(2,45))},
+                { "C", (20,(0,0))},
+                { "D", (15,(0,0))}
+            };
+
+            var checkout = new Checkout(_products);
 
             //act
             checkout.Scan("A");
