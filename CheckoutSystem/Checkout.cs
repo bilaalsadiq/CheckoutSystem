@@ -36,7 +36,7 @@ namespace CheckoutSystem
                     totalPrice += unitPrice * qty;
                 }
             }
-            return totalPrice;
+            return totalPrice + 5;
         }
 
         private readonly Dictionary<string, int> _scannedItems = new Dictionary<string, int>();
